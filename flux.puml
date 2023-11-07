@@ -1,7 +1,33 @@
 @startuml
-Alice -> Bob: Authentication Request
-Bob --> Alice: Authentication Response
+title Blackjack Protocol Sequence Diagram
 
-Alice -> Bob: Another authentication Request
-Alice <-- Bob: Another authentication Response
+actor Client
+actor Server
+Client -> Server : CONNECT
+Server -> Client : OK
+Client -> Server : NEWGAME
+Server -> Client : DEAL
+Client -> Server : HIT
+Server -> Client : DEAL
+Client -> Server : STAND
+Server -> Client : REVEAL
+Client -> Server : NEWGAME
+Server -> Client : DEAL
+Client -> Server : STAND
+Server -> Client : REVEAL
+Client -> Server : QUIT
+...
+Client -> Server : CONNECT
+Server -> Client : OK
+Client -> Server : HIT
+Server -> Client : ERROR
+...
+Client -> Server : CONNECT
+Server -> Client : OK
+Client -> Server : NEWGAME
+Server -> Client : DEAL
+Client -> Server : NEWGAME
+Server -> Client : ERROR
+
+
 @enduml
