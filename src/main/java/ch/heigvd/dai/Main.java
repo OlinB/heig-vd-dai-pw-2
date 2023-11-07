@@ -9,17 +9,19 @@ import java.io.File;
 import java.util.concurrent.Callable;
 
 @Command(name = "Blackjack", mixinStandardHelpOptions = true, version = "Blackjack 0.1",
-        description = "host a Blackjack server")
+        description = "Start a blackjack client or server")
 class Blackjack implements Callable<Integer>{
 
-    @Command(name = "server")
-    public Integer prepare() {
+    @Command(name = "server", mixinStandardHelpOptions = true, version = "Blackjack 0.1",
+            description = "Start a blackjack server")
+    public Integer server() {
         System.out.println("Hello World ! (server)");
         return 0;
     }
 
-    @Command(name = "client")
-    public Integer process() {
+    @Command(name = "client", mixinStandardHelpOptions = true, version = "Blackjack 0.1",
+            description = "Start a blackjack client")
+    public Integer client() {
         System.out.println("Hello World ! (client)");
         return 0;
     }
