@@ -24,7 +24,7 @@ Le serveur devra s'assurer que les actions effectuées sont possibles dépendant
 Si l'action est possible, le serveur affichera le résultat du tirage ou de la partie. 
 Si l'action n'est pas autorisé, un message d'erreur sera renvoyé.
 
-## Messages
+## Section 3 - Messages
 ### Client
 - CONNECT
 - HIT
@@ -34,4 +34,7 @@ Si l'action n'est pas autorisé, un message d'erreur sera renvoyé.
 - Player-Hand (visible 2+)
 	- De quel joueur, si multijoueur
 - Dealer-Hand (1 visible, 1 cachée, avant de révéler)
+
+## Section 4 - Exemples
+
 
