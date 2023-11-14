@@ -15,7 +15,8 @@ class Blackjack implements Callable<Integer>{
     @Command(name = "server", mixinStandardHelpOptions = true, version = "Blackjack 0.1",
             description = "Start a blackjack server")
     public Integer server(@Option(names = {"-p", "--port"}, description = "Server port", defaultValue = "42069") int port) {
-        System.out.println("Hello World ! (server)");
+        BlackJackServer server = new BlackJackServer(port);
+        server.start();
         return 0;
     }
 
@@ -23,8 +24,12 @@ class Blackjack implements Callable<Integer>{
             description = "Start a blackjack client")
     public Integer client(@Option(names = {"-s", "--server"}, description = "Server address", defaultValue = "127.0.0.1") String server,
                           @Option(names = {"-p", "--port"}, description = "Server port", defaultValue = "42069") int port,
-                          @Option(names = "--id", description = "Player id", defaultValue = "") String id) {
-        System.out.println("Hello World ! (client)");
+                          @Option(names = "--id", description = "Player id", defaultValue = "0") int id) {
+        if(id == 0){
+            id = (int) (Math.random() * 1000000);
+        }
+        BlackJackClient client = new BlackJackClient(server, port, id);
+        client.start();
         return 0;
     }
 
