@@ -3,9 +3,7 @@ package ch.heigvd.dai;
 import picocli.CommandLine;
 import picocli.CommandLine.Command;
 import picocli.CommandLine.Option;
-import picocli.CommandLine.Parameters;
 
-import java.io.File;
 import java.util.concurrent.Callable;
 
 @Command(name = "Blackjack", mixinStandardHelpOptions = true, version = "Blackjack 0.1",
@@ -48,7 +46,7 @@ class Blackjack implements Callable<Integer>{
 
 public class Main {
     public static void main(String[] args) {
-        CommandLine commandLine = new CommandLine(new Blackjack());
+        CommandLine commandLine = new CommandLine(new ch.heigvd.dai.Blackjack());
         if(commandLine.isUsageHelpRequested()){
             commandLine.usage(System.out);
             return;
