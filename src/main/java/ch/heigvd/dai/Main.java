@@ -9,18 +9,27 @@ import java.io.File;
 import java.util.concurrent.Callable;
 
 @Command(name = "Blackjack", mixinStandardHelpOptions = true, version = "Blackjack 0.1",
-        description = "host a Blackjack server")
+        description = "Start a blackjack client or server")
 class Blackjack implements Callable<Integer>{
 
-    @Command(name = "server")
-    public Integer prepare() {
-        System.out.println("Hello World ! (server)");
+    @Command(name = "server", mixinStandardHelpOptions = true, version = "Blackjack 0.1",
+            description = "Start a blackjack server")
+    public Integer server(@Option(names = {"-p", "--port"}, description = "Server port", defaultValue = "42069") int port) {
+        BlackJackServer server = new BlackJackServer(port);
+        server.start();
         return 0;
     }
 
-    @Command(name = "client")
-    public Integer process() {
-        System.out.println("Hello World ! (client)");
+    @Command(name = "client", mixinStandardHelpOptions = true, version = "Blackjack 0.1",
+            description = "Start a blackjack client")
+    public Integer client(@Option(names = {"-s", "--server"}, description = "Server address", defaultValue = "127.0.0.1") String server,
+                          @Option(names = {"-p", "--port"}, description = "Server port", defaultValue = "42069") int port,
+                          @Option(names = "--id", description = "Player id", defaultValue = "0") int id) {
+        if(id == 0){
+            id = (int) (Math.random() * 1000000);
+        }
+        BlackJackClient client = new BlackJackClient(server, port, id);
+        client.start();
         return 0;
     }
 
