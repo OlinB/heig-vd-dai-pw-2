@@ -23,9 +23,12 @@ public class Card {
         return false;
     }
 
-    public int pointValue(){
+    public int pointValue(int result){
         switch (value){
-            case ACE -> {return 11;}
+            case ACE -> {
+                if (result + 11 <= 21) return 11;
+                else return 1;
+            }
             case TWO -> {return 2;}
             case THREE -> {return 3;}
             case FOUR -> {return 4;}
