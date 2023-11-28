@@ -8,26 +8,26 @@ Server -> Client : OK
 Client -> Server : NEWGAME
 Server -> Client : DEAL
 Client -> Server : HIT
-Server -> Client : DEAL
+Server -> Client : DEAL X,K A,K
 Client -> Server : STAND
-Server -> Client : REVEAL
+Server -> Client : REVEAL K,K, A,K 20 21 'You win !'
 Client -> Server : NEWGAME
-Server -> Client : DEAL
+Server -> Client : DEAL X,K K,9
 Client -> Server : STAND
-Server -> Client : REVEAL
+Server -> Client : REVEAL K,K, K,9 20 19 'You lose !'
 Client -> Server : QUIT
 ...
 Client -> Server : CONNECT
 Server -> Client : OK
 Client -> Server : HIT
-Server -> Client : ERROR
+Server -> Client : ERROR 'Game not started !'
 ...
 Client -> Server : CONNECT
 Server -> Client : OK
 Client -> Server : NEWGAME
-Server -> Client : DEAL
+Server -> Client : DEAL X,K K,9
 Client -> Server : NEWGAME
-Server -> Client : ERROR
+Server -> Client : ERROR 'Game already started !'
 
 
 @enduml
