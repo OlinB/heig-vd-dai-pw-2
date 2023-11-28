@@ -10,20 +10,14 @@ public class Blackjack {
 
     private Vector<Card> deck = new Vector<>(13*nbFamilies);
 
-    private int tokens; //Argent du joueur  //TODO si on l'implémente ou non.
-    private int bet; //Argents misé par le joueur   //TODO en lien avec les tokens.
-    private int points = 0; //TODO Je ne l'utilise pas, du coup, à remove ? ou bien pas ?.
     private Vector<Card> dealerHand;
-    private Vector<Vector<Card>> playersHand; //Si plusieurs mains sont utilisés par le système.
+    private Vector<Card> playerHand;
 
-    public Blackjack(int nbPlayers){
+    public Blackjack(){
         resetDeck();
         dealerHand = new Vector<>();
-        playersHand = new Vector<>(nbPlayers);
-        for (int i = 0; i < nbPlayers; ++i){
-            playersHand.add(new Vector<>());
-        }
-    } //TODO à voir si le nombre de joueur, on l'augmente ou pas.
+        playerHand = new Vector<>();
+    }
 
     //Méthode à appeler pour commencer un round.
     public void startRound(){
@@ -31,12 +25,9 @@ public class Blackjack {
         dealerHand.removeAllElements();
         draw(dealerHand);
         draw(dealerHand);
-        for (int i = 0; i < playersHand.size(); i++) {
-            Vector<Card> hand = new Vector<>(); // T is the type of elements in the vectors
-            draw(hand);
-            draw(hand);
-            playersHand.set(i, hand);
-        }
+        playerHand.removeAllElements();
+        draw(playerHand);
+        draw(playerHand);
     }
 
     //Méthode à appeler pour afficher la main du dealer.
@@ -56,13 +47,12 @@ public class Blackjack {
         return result;
     }
 
-    //Méthode à appeler pour afficher la main d'un joueur.
-    public String getPlayerHand(int player){
+    //Méthode à appeler pour afficher la main du joueur.
+    public String getPlayerHand(){
         String result = "";
-        Vector<Card> hand = playersHand.get(player);
-        for (int i = 0; i < hand.size(); ++i){
-            result += hand.get(i).toString();
-            if(i != hand.size() - 1){
+        for (int i = 0; i < playerHand.size(); ++i){
+            result += playerHand.get(i).toString();
+            if(i != playerHand.size() - 1){
                 result += ",";
             }
         }
@@ -76,8 +66,8 @@ public class Blackjack {
     }
 
     //Méthode à appeler quand le joueur souhaite HIT et permet de tirer une carte.
-    public void hit(int player){
-        draw(playersHand.get(player));
+    public void hit(){
+        draw(playerHand);
     }
 
     //Méthode créant/réinitialisant le deck.
@@ -98,21 +88,26 @@ public class Blackjack {
     //Méthode récupérant les points pour la main fournie.
     public int getPoints(Vector<Card> hand)
     {
+        int aces = 0;
         int result = 0;
         for (int i = 0; i < hand.size(); ++i){
             if (hand.get(i).isAce()){
-                hand.add(hand.get(i));
-                hand.removeElementAt(i);
-                --i;
+                aces++;
             }
-            else{ result += hand.get(i).pointValue(result); }
+            else{
+                result += hand.get(i).pointValue(result);
+            }
+        }
+        while(result > 21 && aces > 0){
+            result -= 10;
+            aces--;
         }
         return result;
     }
 
-    //Méthode récupérant les points pour la main du joueur fourni.
-    public int getPlayerPoints(int player){
-        return getPoints(playersHand.get(player));
+    //Méthode récupérant les points pour la main du joueur.
+    public int getPlayerPoints(){
+        return getPoints(playerHand);
     }
 
     //Méthode récupérant les points pour la main du dealer.
@@ -121,8 +116,7 @@ public class Blackjack {
     }
 
     //Méthode à appeler une fois que le joueur a fini de jouer.
-    public String gameResult(int player){
-        Vector<Card> playerHand = playersHand.get(player);
+    public String gameResult(){
         if (getPoints(playerHand) > 21){
             return "You lose !";
         }

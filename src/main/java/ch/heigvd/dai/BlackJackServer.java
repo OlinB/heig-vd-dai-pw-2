@@ -21,7 +21,7 @@ public class BlackJackServer extends TcpServer{
         ERROR,
     }
 
-    private Blackjack game = new Blackjack(1);
+    private Blackjack game = new Blackjack();
     private boolean inGame = false;
 
     public BlackJackServer(int port, int serverId) {
@@ -44,19 +44,19 @@ public class BlackJackServer extends TcpServer{
             game.startRound();
             inGame = true;
 
-            return Responses.DEAL.name() + " " + game.getDealerHand(false) + " " +  game.getPlayerHand(0) + " " + (game.getPlayerPoints(0));
+            return Responses.DEAL.name() + " " + game.getDealerHand(false) + " " +  game.getPlayerHand() + " " + (game.getPlayerPoints());
         }
         if(request.equals(Requests.HIT.name())){
             if(!inGame){
                 return Responses.ERROR.name() + " 'Game not started !'";
             }
-            game.hit(0);
-            int points = game.getPlayerPoints(0);
+            game.hit();
+            int points = game.getPlayerPoints();
             if(points > 21){
                 inGame = false;
-                return Responses.REVEAL.name() + game.getDealerHand(true) + " " + game.getPlayerHand(0) + " " + game.getDealerPoints() + " " + points + " 'You lose !' ";
+                return Responses.REVEAL.name() + " " + game.getDealerHand(true) + " " + game.getPlayerHand() + " " + game.getDealerPoints() + " " + points + " 'You lose !' ";
             }
-            return Responses.DEAL.name() + " " + game.getDealerHand(false) + " " + game.getPlayerHand(0) + " " + points;
+            return Responses.DEAL.name() + " " + game.getDealerHand(false) + " " + game.getPlayerHand() + " " + points;
         }
         if(request.equals(Requests.STAND.name())){
             if(!inGame){
@@ -64,10 +64,10 @@ public class BlackJackServer extends TcpServer{
             }
             inGame = false;
             game.revealDealerHand();
-            int points = game.getPlayerPoints(0);
+            int points = game.getPlayerPoints();
             int dealerPoints = game.getDealerPoints();
 
-            return Responses.REVEAL.name() + " " + game.getDealerHand(true) + " " + game.getPlayerHand(0) + " " + dealerPoints + " " + points + " " + game.gameResult(0);
+            return Responses.REVEAL.name() + " " + game.getDealerHand(true) + " " + game.getPlayerHand() + " " + dealerPoints + " " + points + " " + game.gameResult();
         }
         if(request.equals(Requests.QUIT.name())){
             return null;
