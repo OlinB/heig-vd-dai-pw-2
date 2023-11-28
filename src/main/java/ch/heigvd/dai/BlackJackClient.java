@@ -79,6 +79,7 @@ public class BlackJackClient extends TcpClient {
                     System.out.println("Dealer points: " + split[3]);
                     System.out.println("Your points: " + split[4]);
                     System.out.println(split[5]);
+                    inGame = false;
                     break;
                 case "ERROR":
                     split = response.split(" ", 2);

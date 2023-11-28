@@ -93,6 +93,7 @@ public class Blackjack {
         for (int i = 0; i < hand.size(); ++i){
             if (hand.get(i).isAce()){
                 aces++;
+                result += 11;
             }
             else{
                 result += hand.get(i).pointValue(result);
