@@ -127,7 +127,7 @@ public class Blackjack {
             return "You lose !";
         }
         else if(getPoints(playerHand) == 21 && playerHand.size() == 2){
-            return "Blackhjack !";
+            return "Blackjack !";
         }
         else if(getPoints(dealerHand) > 21 && getPoints(playerHand) <= 21){
             return "You win !";
