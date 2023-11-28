@@ -65,15 +65,15 @@ class TcpServer {
                             )
                     )
             ) {
+                System.out.println(
+                        "[Server " +
+                                SERVER_ID +
+                                "] new client connected from " +
+                                socket.getInetAddress().getHostAddress() +
+                                ":" +
+                                socket.getPort()
+                );
                 while(running){
-                    System.out.println(
-                            "[Server " +
-                                    SERVER_ID +
-                                    "] new client connected from " +
-                                    socket.getInetAddress().getHostAddress() +
-                                    ":" +
-                                    socket.getPort()
-                    );
 
                     String data = in.readLine();
 
