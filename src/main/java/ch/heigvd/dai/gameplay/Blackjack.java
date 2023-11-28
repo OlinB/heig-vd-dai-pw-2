@@ -10,17 +10,14 @@ public class Blackjack {
 
     private Vector<Card> deck = new Vector<>(13*nbFamilies);
 
-    private int tokens; //Argent du joueur  //TODO si on l'implémente ou non.
-    private int bet; //Argents misé par le joueur   //TODO en lien avec les tokens.
-    private int points = 0; //TODO Je ne l'utilise pas, du coup, à remove ? ou bien pas ?.
     private Vector<Card> dealerHand;
-    private Vector<Card> playerHand; //Si plusieurs mains sont utilisés par le système.
+    private Vector<Card> playerHand;
 
     public Blackjack(){
         resetDeck();
         dealerHand = new Vector<>();
         playerHand = new Vector<>();
-    } //TODO à voir si le nombre de joueur, on l'augmente ou pas.
+    }
 
     //Méthode à appeler pour commencer un round.
     public void startRound(){
@@ -50,7 +47,7 @@ public class Blackjack {
         return result;
     }
 
-    //Méthode à appeler pour afficher la main d'un joueur.
+    //Méthode à appeler pour afficher la main du joueur.
     public String getPlayerHand(){
         String result = "";
         for (int i = 0; i < playerHand.size(); ++i){
